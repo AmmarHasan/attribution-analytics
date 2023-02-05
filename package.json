@@ -1,7 +1,7 @@
 {
   "name": "blinkist-attribution-analytics",
   "version": "0.0.1",
-  "description": "",
+  "description": "A microservice that tells Blinkist where the users are coming from: marketing campaign, landing page, podcast, Youtube video, etc allowing them to make informed marketing decisions and grow sustainably.",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

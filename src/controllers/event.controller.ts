@@ -1,18 +1,17 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { EventDto } from 'src/dto/event.dto';
-
-const data: EventDto[] = [];
+import { EventService } from 'src/services/event.service';
 
 @Controller('event')
 export class EventController {
+  constructor(private readonly eventService: EventService) {}
   @Post()
   create(@Body() eventData: EventDto) {
-    data.push(eventData);
-    return eventData;
+    return this.eventService.create(eventData);
   }
 
   @Get(':fingerprint')
   getAllByFingerprint(@Param('fingerprint') fingerprint: string) {
-    return data;
+    return this.eventService.getAllByFingerprint(fingerprint);
   }
 }

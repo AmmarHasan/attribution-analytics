@@ -10,6 +10,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Event {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String
+  fingerprint       String
+  userId            String    @map("user_id")
+  createdAt         DateTime  @map("created_at")
+}
+
 model Pageview {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   fingerprint       String

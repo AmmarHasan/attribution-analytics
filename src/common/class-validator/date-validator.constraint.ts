@@ -3,7 +3,6 @@ import {
   ValidatorConstraintInterface,
 } from 'class-validator';
 
-// @ValidatorConstraint({ name: 'customText', async: false })
 @ValidatorConstraint()
 export class DateValidator implements ValidatorConstraintInterface {
   validate(dateString: string) {

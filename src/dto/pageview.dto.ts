@@ -1,6 +1,6 @@
 import { IsString, IsUrl, IsUUID, Validate } from 'class-validator';
-import { IsNullable } from 'src/utils/nullable.decorator';
-import { DateValidator } from 'src/utils/date-validator.constraint';
+import { IsNullable } from 'src/common/nullable.decorator';
+import { DateValidator } from 'src/common/date-validator.constraint';
 
 export class PageViewDto {
   @IsUUID()

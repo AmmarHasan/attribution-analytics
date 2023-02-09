@@ -6,6 +6,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model Pageview {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  fingerprint       String
+  userId            String?   @map("user_id")
+  url               String
+  referrerUrl       String?   @map("referrer_url")
+  createdAt         DateTime  @map("created_at")
+  channel           ChannelEnum
+  utmSource         String?    @map("utm_source")
+  utmMedium         String?    @map("utm_medium")
+  utmCampaign       String?    @map("utm_campaign")
+  utmContent        String?    @map("utm_content")
+}
+
+enum ChannelEnum {
+  paid
+  organic
+  direct
+}
+

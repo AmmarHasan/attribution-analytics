@@ -17,7 +17,7 @@ export class EventRepository {
     return await this.client.event.findMany({
       where: { fingerprint },
       orderBy: {
-        createdAt: 'desc',
+        created_at: 'desc',
       },
     });
   }

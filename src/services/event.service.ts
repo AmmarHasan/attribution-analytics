@@ -7,14 +7,13 @@ export class EventService {
   constructor(private readonly eventRepository: EventRepository) {}
 
   create(eventDto: EventDto) {
-    const { name, fingerprint, user_id, created_at } = eventDto;
+    const event = {
+      ...eventDto,
+      created_at: new Date(eventDto.created_at)
+    };
+    
 
-    return this.eventRepository.create({
-      name,
-      fingerprint,
-      userId: user_id,
-      createdAt: new Date(created_at),
-    });
+    return this.eventRepository.create(event);
   }
 
   async getAllByFingerprint(fingerprint: string) {

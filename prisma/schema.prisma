@@ -14,22 +14,22 @@ model Event {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   name              String
   fingerprint       String
-  userId            String    @map("user_id")
-  createdAt         DateTime  @map("created_at")
+  user_id           String
+  created_at        DateTime
 }
 
 model Pageview {
   id                String    @id @default(auto()) @map("_id") @db.ObjectId
   fingerprint       String
-  userId            String?   @map("user_id")
+  user_id            String?
   url               String
-  referrerUrl       String?   @map("referrer_url")
-  createdAt         DateTime  @map("created_at")
+  referrer_url       String?
+  created_at         DateTime
   channel           ChannelEnum
-  utmSource         String?    @map("utm_source")
-  utmMedium         String?    @map("utm_medium")
-  utmCampaign       String?    @map("utm_campaign")
-  utmContent        String?    @map("utm_content")
+  utm_source         String?
+  utm_medium         String?
+  utm_campaign       String?
+  utm_content        String?
 }
 
 enum ChannelEnum {

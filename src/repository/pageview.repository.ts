@@ -19,11 +19,10 @@ export class PageviewRepository {
     return await this.client.pageview.findMany({
       where: { fingerprint },
       orderBy: {
-        createdAt: 'desc',
+        created_at: 'desc',
       },
     });
   }
 }
 
-export type PageviewCreateInput = Prisma.PageviewCreateInput;
 export { ChannelEnum };

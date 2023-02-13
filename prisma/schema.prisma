@@ -11,25 +11,28 @@ datasource db {
 }
 
 model Event {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  name              String
-  fingerprint       String
-  user_id           String
-  created_at        DateTime
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  fingerprint String
+  user_id     String
+  created_at  DateTime
+  attribution Attribution? @relation("event")
 }
 
 model Pageview {
-  id                String    @id @default(auto()) @map("_id") @db.ObjectId
-  fingerprint       String
-  user_id            String?
-  url               String
-  referrer_url       String?
-  created_at         DateTime
-  channel           ChannelEnum
-  utm_source         String?
-  utm_medium         String?
-  utm_campaign       String?
-  utm_content        String?
+  id                          String        @id @default(auto()) @map("_id") @db.ObjectId
+  fingerprint                 String
+  user_id                     String?
+  url                         String
+  referrer_url                String?
+  created_at                  DateTime
+  channel                     ChannelEnum
+  utm_source                  String?
+  utm_medium                  String?
+  utm_campaign                String?
+  utm_content                 String?
+  attributedAsFirstTouchpoint Attribution[] @relation("firstTouchpoint")
+  attributedAsLastTouchpoint  Attribution[] @relation("lastTouchpoint")
 }
 
 enum ChannelEnum {
@@ -38,3 +41,12 @@ enum ChannelEnum {
   direct
 }
 
+model Attribution {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  event             Event     @relation("event", fields: [eventId], references: [id])
+  eventId           String    @unique @db.ObjectId
+  firstTouchpoint   Pageview? @relation("firstTouchpoint", fields: [firstTouchpointId], references: [id])
+  firstTouchpointId String?   @db.ObjectId
+  lastTouchpoint    Pageview? @relation("lastTouchpoint", fields: [lastTouchpointId], references: [id])
+  lastTouchpointId  String?   @db.ObjectId
+}

@@ -3,7 +3,7 @@ import { DateValidator } from 'src/common/class-validator/date-validator.constra
 import { validEventNames } from 'src/common/constants';
 
 export class EventDto {
-  @IsIn(validEventNames)
+  @IsIn([validEventNames.SIGNUP])
   name!: string;
 
   @IsUUID()

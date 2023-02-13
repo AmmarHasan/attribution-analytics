@@ -15,6 +15,23 @@ export class PageviewRepository {
     });
   }
 
+  async getFirstTouchpoint(fingerprint: string): Promise<Pageview | null> {
+    return await this.client.pageview.findFirst({
+      orderBy: {
+        created_at: 'asc'
+      }
+    })
+  }
+
+  async getLastTouchpoint(fingerprint: string): Promise<Pageview | null> {
+    return await this.client.pageview.findFirst({
+      where: { fingerprint },
+      orderBy: {
+        created_at: 'desc'
+      }
+    })
+  }
+
   async getAllByFingerprint(fingerprint: string): Promise<Pageview[]> {
     return await this.client.pageview.findMany({
       where: { fingerprint },

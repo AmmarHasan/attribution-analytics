@@ -8,25 +8,26 @@ export class PageviewService {
   constructor(private readonly pageviewRepository: PageviewRepository) {}
 
   create(pageviewDto: PageViewDto) {
-    const { created_at, fingerprint, referrer_url, url, user_id } = pageviewDto;
-    const { utm_campaign, utm_content, utm_medium, utm_source } =
-      extractUtmParams(url);
+    const utm_params = extractUtmParams(pageviewDto.url);
+    const created_at = new Date(pageviewDto.created_at);
 
     return this.pageviewRepository.create({
-      fingerprint,
-      url,
-      createdAt: new Date(created_at),
-      referrerUrl: referrer_url,
-      userId: user_id,
-      utmCampaign: utm_campaign,
-      utmContent: utm_content,
-      utmMedium: utm_medium,
-      utmSource: utm_source,
+      ...pageviewDto,
+      ...utm_params,
+      created_at,
       channel: getChannel(pageviewDto),
     });
   }
 
-  async getAllByFingerprint(fingerprint: string) {
-    return await this.pageviewRepository.getAllByFingerprint(fingerprint);
+  getFirstTouchpoint(fingerprint: string) {
+    return this.pageviewRepository.getFirstTouchpoint(fingerprint);
+  }
+
+  getLastTouchpoint(fingerprint: string) {
+    return this.pageviewRepository.getLastTouchpoint(fingerprint);
+  }
+  
+  getAllByFingerprint(fingerprint: string) {
+    return this.pageviewRepository.getAllByFingerprint(fingerprint);
   }
 }
